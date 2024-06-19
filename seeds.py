@@ -1,8 +1,8 @@
+import sqlite3
+
 from textual.app import ComposeResult
 from textual.screen import Screen
 from textual.widgets import DataTable, Footer, Header
-
-from data import SEEDS
 
 
 class SeedsScreen(Screen):
@@ -17,8 +17,12 @@ class SeedsScreen(Screen):
 
     def on_mount(self) -> None:
         table = self.query_one(DataTable)
-        table.add_columns(*SEEDS[0])
-        table.add_rows(SEEDS[1:])
+        con = sqlite3.connect("data.db")
+        cur = con.cursor()
+        data = cur.execute("SELECT * FROM seeds").fetchall()
+        columns = [description[0] for description in cur.description]
+        table.add_columns(*columns)
+        table.add_rows(data)
 
     def action_add_seed(self) -> None:
         pass
