@@ -2,7 +2,7 @@ from textual.app import App, ComposeResult
 from textual.screen import Screen
 from textual.widgets import Footer, Header, Markdown
 
-from seeds import SeedsScreen
+from seeds import SeedInputScreen, SeedsScreen
 
 
 with open("README.md") as file:
@@ -20,10 +20,14 @@ class HomeScreen(Screen):
 class PyGardener(App):
 
     CSS_PATH = "app.tcss"
-    SCREENS = {"home": HomeScreen(), "seeds": SeedsScreen()}
+    SCREENS = {
+        "home": HomeScreen(),
+        "seeds": SeedsScreen(),
+        "seed_input": SeedInputScreen(),
+    }
     BINDINGS = [
         ("h", "push_screen('home')", "Home"),
-        ("s", "push_screen('seeds')", "Seeds"),
+        ("s", "push_screen('seeds')", "View Seeds"),
         ("d", "toggle_dark", "Toggle Dark Mode"),
         ("q", "quit", "Quit"),
     ]
@@ -40,6 +44,9 @@ class PyGardener(App):
 
     def action_toggle_dark(self) -> None:
         self.dark = not self.dark
+
+    def action_add_seed(self) -> None:
+        self.push_screen(SeedInputScreen())
 
 
 if __name__ == "__main__":
