@@ -11,7 +11,3 @@ class Seed(BaseModel):
     purchase_date: date
     expiration_date: date
     description: str
-
-    def row_factory(self, cursor, row):
-        fields = [column[0] for column in cursor.description]
-        return Seed(**{k: v for k, v in zip(fields, row)})

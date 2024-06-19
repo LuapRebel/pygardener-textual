@@ -6,6 +6,12 @@ import sqlite3
 con = sqlite3.connect("data.db")
 cur = con.cursor()
 
+
+def row_factory(cursor, model, row):
+    fields = [column[0] for column in cursor.description]
+    return model(**{k: v for k, v in zip(fields, row)})
+
+
 create_seeds = """
 CREATE TABLE IF NOT EXISTS seeds(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
