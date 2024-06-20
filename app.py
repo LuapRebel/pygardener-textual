@@ -2,6 +2,7 @@ from textual.app import App, ComposeResult
 from textual.screen import Screen
 from textual.widgets import Footer, Header, Markdown
 
+from conn import CONN
 from seeds import SeedInputScreen, SeedsScreen
 
 
@@ -38,6 +39,9 @@ class PyGardener(App):
 
     def on_mount(self) -> None:
         self.push_screen(HomeScreen())
+
+    def on_close(self) -> None:
+        CONN.close()
 
     def action_quit(self) -> None:
         self.exit()

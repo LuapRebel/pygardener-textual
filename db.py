@@ -1,11 +1,8 @@
-from datetime import date
-
-import sqlite3
-
+## ONLY UNCOMMENT AND RUN TO CREATE THE DATABASE
+# from conn import CONN
 from models import Seed
 
-con = sqlite3.connect("data.db")
-cur = con.cursor()
+# cur = CONN.cursor()
 
 
 def seed_row_factory(cursor, row):
@@ -25,14 +22,5 @@ CREATE TABLE IF NOT EXISTS seeds(
     description TEXT
 )
 """
-cur.execute(CREATE_SEEDS)
-
-INSERT_SEEDS = """
-    INSERT INTO seeds(species, brand, vendor, quantity, purchase_date, expiration_date, description) VALUES
-    ("Zea mays", "Jerky Seed Co.", "Encinal", 100, "2024-01-01", "2025-01-01", "Awesome"),
-    ("Phaesoleus vulgaris", "Super Seed Co.", "Amazon", 200, "2024-03-12", "2026-01-01", "Sweet!");
-"""
-
-cur.execute(INSERT_SEEDS)
-con.commit()
-con.close()
+# cur.execute(CREATE_SEEDS)
+# CONN.close()

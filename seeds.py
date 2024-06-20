@@ -5,6 +5,9 @@ from textual.app import ComposeResult
 from textual.screen import ModalScreen, Screen
 from textual.widgets import Button, DataTable, Footer, Header, Input
 
+from conn import CONN
+from models import Seed
+
 
 class SeedInputScreen(ModalScreen):
     """Modal screen to provide inputs to create a Seed"""
@@ -26,15 +29,13 @@ class SeedInputScreen(ModalScreen):
     def on_button_pressed(self, event: Button.Pressed):
         inputs = self.query(Input)
         seed_data = tuple(i.value for i in inputs)
-        con = sqlite3.connect("data.db")
-        cur = con.cursor()
+        cur = CONN.cursor()
         cur.execute(
             """INSERT INTO seeds(species, brand, vendor, quantity, purchase_date, expiration_date, description) 
             VALUES(?, ?, ?, ?, ?, ?, ?)""",
             seed_data,
         )
-        con.commit()
-        con.close()
+        CONN.commit()
         for i in inputs:
             i.clear()
         self.app.push_screen("seeds")
@@ -52,13 +53,11 @@ class SeedsScreen(Screen):
 
     def on_mount(self) -> None:
         table = self.query_one(DataTable)
-        con = sqlite3.connect("data.db")
-        cur = con.cursor()
+        cur = CONN.cursor()
         data = cur.execute("SELECT * FROM seeds").fetchall()
         columns = [description[0] for description in cur.description]
         table.add_columns(*columns)
         table.add_rows(data)
-        con.close()
 
     def _on_screen_resume(self) -> None:
         table = self.query_one(DataTable)
@@ -67,4 +66,3 @@ class SeedsScreen(Screen):
         cur = con.cursor()
         data = cur.execute("SELECT * FROM seeds").fetchall()
         table.add_rows(data)
-        con.close()
