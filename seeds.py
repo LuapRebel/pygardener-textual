@@ -1,12 +1,10 @@
 import sqlite3
 
-from textual import on
 from textual.app import ComposeResult
 from textual.screen import ModalScreen, Screen
 from textual.widgets import Button, DataTable, Footer, Header, Input
 
 from conn import CONN
-from models import Seed
 
 
 class SeedInputScreen(ModalScreen):

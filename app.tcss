@@ -1,0 +1,7 @@
+SeedInputScreen {
+    align: center middle;
+}
+
+SeedInputScreen Input {
+    width: 50%;
+}
