@@ -1,25 +1,12 @@
 from textual.app import App, ComposeResult
-from textual.screen import Screen
 from textual.widgets import Footer, Header, Markdown
 
 from conn import CONN
+from home import HomeScreen
 from seeds import SeedInputScreen, SeedsScreen
 
 
-with open("README.md") as file:
-    MARKDOWN = file.read()
-
-
-class HomeScreen(Screen):
-
-    def compose(self) -> ComposeResult:
-        yield Header()
-        yield Markdown(markdown=MARKDOWN)
-        yield Footer()
-
-
 class PyGardener(App):
-
     CSS_PATH = "app.tcss"
     SCREENS = {
         "home": HomeScreen(),
