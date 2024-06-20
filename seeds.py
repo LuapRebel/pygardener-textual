@@ -35,6 +35,8 @@ class SeedInputScreen(ModalScreen):
         )
         con.commit()
         con.close()
+        for i in inputs:
+            i.clear()
         self.app.push_screen("seeds")
 
 
