@@ -44,7 +44,7 @@ class SeedInputScreen(ModalScreen):
 class SeedsScreen(Screen):
     """Widget to manage seed collections."""
 
-    BINDINGS = [("a", "app.add_seed", "Add Seed")]
+    BINDINGS = [("a", "add_seed", "Add Seed")]
 
     def compose(self) -> ComposeResult:
         yield Header()
@@ -66,3 +66,6 @@ class SeedsScreen(Screen):
         cur = con.cursor()
         data = cur.execute("SELECT * FROM seeds").fetchall()
         table.add_rows(data)
+
+    def action_add_seed(self) -> None:
+        self.app.push_screen("seed_input")

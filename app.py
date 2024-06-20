@@ -36,9 +36,6 @@ class PyGardener(App):
     def action_toggle_dark(self) -> None:
         self.dark = not self.dark
 
-    def action_add_seed(self) -> None:
-        self.push_screen("seed_input")
-
 
 if __name__ == "__main__":
     app = PyGardener()
