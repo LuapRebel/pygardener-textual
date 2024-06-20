@@ -22,9 +22,9 @@ def test_insert_seed(create_test_db):
     with conn:
         conn.execute(
             """
-            INSERT INTO seeds(species, brand, vendor, quantity, purchase_date, expiration_date, description) VALUES
-            ("Zea mays", "Jerky Seed Co.", "Encinal", 100, "2024-01-01", "2025-01-01", "Awesome"),
-            ("Phaesoleus vulgaris", "Super Seed Co.", "Amazon", 200, "2024-03-12", "2026-01-01", "Sweet!");
+            INSERT INTO seeds(species, common_name, brand, vendor, quantity, days_to_germination, days_to_harvest, purchase_date, expiration_date, description) VALUES
+            ("Zea mays", "Corn", "Jerky Seed Co.", "Encinal", 100, "10-12", "100-110", "2024-01-01", "2025-01-01", "Awesome"),
+            ("Phaesoleus vulgaris", "Beans", "Super Seed Co.", "Amazon", 200, "10-14", "75-80", "2024-03-12", "2026-01-01", "Sweet!");
             """
         )
 
@@ -33,9 +33,12 @@ def test_insert_seed(create_test_db):
         assert res == Seed(
             id=1,
             species="Zea mays",
+            common_name="Corn",
             brand="Jerky Seed Co.",
             vendor="Encinal",
             quantity=100,
+            days_to_germination="10-12",
+            days_to_harvest="100-110",
             purchase_date="2024-01-01",
             expiration_date="2025-01-01",
             description="Awesome",

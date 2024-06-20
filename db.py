@@ -2,8 +2,6 @@
 # from conn import CONN
 from models import Seed
 
-# cur = CONN.cursor()
-
 
 def seed_row_factory(cursor, row):
     fields = [column[0] for column in cursor.description]
@@ -14,13 +12,16 @@ CREATE_SEEDS = """
 CREATE TABLE IF NOT EXISTS seeds(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     species TEXT,
+    common_name TEXT,
     brand TEXT,
     vendor TEXT,
     quantity INTEGER,
+    days_to_germination TEXT,
+    days_to_harvest TEXT,
     purchase_date DATE,
     expiration_date DATE,
     description TEXT
 )
 """
-# cur.execute(CREATE_SEEDS)
+# CONN.execute(CREATE_SEEDS)
 # CONN.close()

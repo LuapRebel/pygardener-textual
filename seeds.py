@@ -17,8 +17,11 @@ class SeedInputScreen(ModalScreen):
     def compose(self) -> ComposeResult:
         yield Input(placeholder="Species (e.g. Zea mays)", id="seed-species")
         yield Input(placeholder="Brand", id="seed-brand")
+        yield Input(placeholder="Common Name", id="seed-common-name")
         yield Input(placeholder="Vendor", id="seed-vendor")
         yield Input(placeholder="Quantity", type="integer", id="seed-quantity")
+        yield Input(placeholder="Days to Germination", id="seed-days-to-germination")
+        yield Input(placeholder="Days to Harvest", id="seed-days-to-harvest")
         yield Input(placeholder="Purchase Date", id="seed-purchase-date")
         yield Input(placeholder="Expiration Date", id="seed-expiration-date")
         yield Input(placeholder="Description", id="seed-description")
@@ -29,8 +32,8 @@ class SeedInputScreen(ModalScreen):
         seed_data = tuple(i.value for i in inputs)
         cur = CONN.cursor()
         cur.execute(
-            """INSERT INTO seeds(species, brand, vendor, quantity, purchase_date, expiration_date, description) 
-            VALUES(?, ?, ?, ?, ?, ?, ?)""",
+            """INSERT INTO seeds(species, common_name, brand, vendor, quantity, days_to_germation, days_to_harvest, purchase_date, expiration_date, description) 
+            VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
             seed_data,
         )
         CONN.commit()
