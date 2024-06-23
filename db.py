@@ -1,6 +1,6 @@
 ## ONLY UNCOMMENT AND RUN TO CREATE THE DATABASE
 # from conn import CONN
-from models import Seed
+from schemas import Seed
 
 
 def seed_row_factory(cursor, row):
@@ -11,8 +11,8 @@ def seed_row_factory(cursor, row):
 CREATE_SEEDS = """
 CREATE TABLE IF NOT EXISTS seeds(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    species TEXT,
     common_name TEXT,
+    species TEXT,
     brand TEXT,
     vendor TEXT,
     quantity INTEGER,

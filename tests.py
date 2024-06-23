@@ -4,7 +4,7 @@ import pytest
 
 from db import CREATE_SEEDS
 from db import seed_row_factory
-from models import Seed
+from schemas import Seed
 
 
 @pytest.fixture
@@ -22,9 +22,9 @@ def test_insert_seed(create_test_db):
     with conn:
         conn.execute(
             """
-            INSERT INTO seeds(species, common_name, brand, vendor, quantity, days_to_germination, days_to_harvest, purchase_date, expiration_date, description) VALUES
-            ("Zea mays", "Corn", "Jerky Seed Co.", "Encinal", 100, "10-12", "100-110", "2024-01-01", "2025-01-01", "Awesome"),
-            ("Phaesoleus vulgaris", "Beans", "Super Seed Co.", "Amazon", 200, "10-14", "75-80", "2024-03-12", "2026-01-01", "Sweet!");
+            INSERT INTO seeds(common_name, species, brand, vendor, quantity, days_to_germination, days_to_harvest, purchase_date, expiration_date, description) VALUES
+            ("Corn", "Zea mays", "Jerky Seed Co.", "Encinal", 100, "10-12", "100-110", "2024-01-01", "2025-01-01", "Awesome"),
+            ("Beans", "Phaesoleus vulgaris", "Super Seed Co.", "Amazon", 200, "10-14", "75-80", "2024-03-12", "2026-01-01", "Sweet!");
             """
         )
 
@@ -32,8 +32,8 @@ def test_insert_seed(create_test_db):
         res = conn.execute("SELECT * FROM seeds WHERE id = 1").fetchone()
         assert res == Seed(
             id=1,
-            species="Zea mays",
             common_name="Corn",
+            species="Zea mays",
             brand="Jerky Seed Co.",
             vendor="Encinal",
             quantity=100,
